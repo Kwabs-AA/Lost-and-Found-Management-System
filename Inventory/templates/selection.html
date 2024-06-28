@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'selection.css' %}">
+    <title>Selection</title>
+</head>
+<body>
+    <div class="logcase">
+    <a href="{% url 'logout' %}" class="btn">Logout</a>
+    </div>
+    <div class="container">
+        <h1><i>Hello {{name}}</i>,</h1>
+        <h1>Please select a role</h1>
+        <div class="buttons">
+            <a href="{% url 'upload' %}" class="btn" id="uploadbtn">Upload</a>
+            <a href="{% url 'find' %}" class="btn" id="findbtn">Find</a>
+        </div>
+    </div>
+</body>
+</html>

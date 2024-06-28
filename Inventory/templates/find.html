@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Page</title>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .form-container {
+            max-width: 450px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: medium;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .alert button.close {
+            font-size: 20px;
+            line-height: 1;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>    
+            {% endfor %}
+        </div>
+    {% endif %}
+        <form method="POST" action="{% url 'search_file' %}">
+            {% csrf_token %}
+            <h2>Locate Your Item</h2>
+            <div class="form-group">
+                <select class="form-control" id="category" name="category" onclick="additional()">
+                    <option value="">Select Category</option>
+                    <option value="ID">ID</option>
+                    <option value="Personal Belongings">Personal Belongings</option>
+                    <option value="Devices">Devices</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter the index number here" name="indexNo" id="lostindex">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter the belongings/device name (e.g., bag, purse, iPhone)" id="lostdesc" name="name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter color description (excluding ID)" name="desc" id="desc">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Locate</button>
+            <script src="{% static 'upload.js' %}"></script>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

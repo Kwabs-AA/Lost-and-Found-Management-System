@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            background: url('') no-repeat center center fixed;
+            background-size: cover;
+            width: 900px; /* Adjust as necessary */
+            height: 600px; /* Adjust as necessary */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px; /* Adjust as necessary */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+        }
+        .picture-frame {
+            width: 500px; /* Adjust as necessary */
+            height: calc(100% - 100px); ; /* Adjust as necessary */
+            background: url(https://img.freepik.com/free-vector/stylish-faq-symbol-fluid-background-think-ask-doubt-vector_1017-45804.jpg?t=st=1718972602~exp=1718976202~hmac=684b4d342c1c92bd79db827cac66b246a9eb2cb6d07f7430731f3f6ee8d5208d&w=740) no-repeat center center;
+            border-radius:10px ;
+            background-size: cover;
+            padding: 20px; /* Adjust as necessary */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid #ccc; /* Divider between frame and form */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow */
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.9); /* Faint white background */
+            padding: 30px;
+            border-radius: 10px;
+            width: calc(100% - 320px); /* Adjust for spacing */
+        }
+        select, input[type="file"], input[type="text"], input[type="submit"] {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .alert {
+            margin-bottom: 20px;
+        }
+        .close {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="picture-frame">
+            <!-- Left side content (picture frame) -->
+        </div>
+        <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>    
+                {% endfor %}
+            {% endif %}
+            {% csrf_token %}
+            <select name="category" id="category" onchange="additional()">
+                <option value="">Choose category...</option>
+                <option value="ID">ID</option>
+                <option value="Personal Belongings">Personal Belongings</option>
+                <option value="Devices">Devices</option>
+            </select>
+            <input type="file" name="image" accept="image/*" capture="environment" id="imageFile">
+            <input type="text" name="lostdesc" placeholder="Enter color description over" id="lostdesc">
+            <input type="text" name="lostindex" placeholder="Enter missing student's index number here" class="index" id="lostindex">
+            <input type="text" name="name" placeholder="Enter the Belongings/device name e.g., bag, purse, iPhone" id="name">
+            <input type="text" name="location" placeholder="Type the drop off location here" id="location">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="{% static 'upload.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost and Found Results</title>
+  {% load static %}
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f1f1;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #eee;
+    }
+    .header h1 {
+      font-size: 2.5em;
+      color: #333;
+    }
+    .item {
+      display: grid;
+      grid-template-columns: 1fr 2fr; /* Adjusted grid layout */
+      gap: 20px;
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.3s ease;
+      align-items: start;
+    }
+    .item:last-child {
+      border-bottom: none;
+    }
+    .item:hover {
+      background-color: #f9f9f9;
+    }
+        .item img {
+    height: 350px; /* Increased image size */
+    width: 100%; /* Take full width available */
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.1em; 
+    }
+    .item-details .group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .item-details strong {
+      color: #333;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .item-details textarea {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+      font-size: 1em; 
+      color: #555;
+    }
+    .description textarea {
+      width: calc(100% - 20px); 
+      height: 100px;
+    }
+    .home-link {
+      display: block;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .home-link a {
+      text-decoration: none;
+      color: #fff;
+      background-color: #007bff;
+      padding: 12px 24px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .home-link a:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 768px) {
+      .item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Lost and Found Results</h1>
+    </div>
+    {% if items %}
+      <ul style="list-style: none; padding: 0;">
+        {% for item in items %}
+          <li class="item">
+            <div>
+              <strong>Picture of lost item:</strong>
+              <img src="{{ item.image.url }}" alt="lost image">
+            </div>
+            <div class="item-details">
+              <div class="group">
+                <div>
+                  <strong>Category:</strong>
+                  <textarea readonly>{{ item.category }}</textarea>
+                </div>
+                <div>
+                  <strong>Index Number:</strong>
+                  <textarea readonly>{{ item.indexNo }}</textarea>
+                </div>
+              </div>
+              <div class="group">
+                <div>
+                  <strong>Name:</strong>
+                  <textarea readonly>{{ item.name }}</textarea>
+                </div>
+                <div>
+                  <strong>Location:</strong>
+                  <textarea readonly>{{ item.location }}</textarea>
+                </div>
+              </div>
+              <div class="group description">
+                <strong>Description:</strong>
+                <textarea readonly>{{ item.lostdesc }}</textarea>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No items found.</p>
+    {% endif %}
+    <div class="home-link">
+      <a href="{% url 'home' %}">Go to the home page</a>
+    </div>
+  </div>
+</body>
+</html>
