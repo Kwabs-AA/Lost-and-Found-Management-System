@@ -4,15 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
         var lostindexInput = document.getElementById("lostindex");
         var lostdescInput = document.getElementById("lostdesc");
         var lostname = document.getElementById("name");
-      
+        var lostcolor = document.getElementById("desc")
 
         if (category === "ID") {
             lostindexInput.style.display = "block";
             lostdescInput.style.display = "none";
             lostname.style.display = "none";
-            
-        } else if (category === "") {
-            alert("please choose a category");
+            lostcolor.style.display = "none";
         } else {
             lostindexInput.style.display = "none";
             lostdescInput.style.display = "block";

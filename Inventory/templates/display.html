@@ -145,14 +145,17 @@
               </div>
             </div>
           </li>
-        {% endfor %}
       </ul>
+      <div class="home-link">
+        <a href="{% url 'review' item.id %}">Go and review</a>
+      </div>
+      <div class="home-link">
+        <a href="{% url 'home' %}">Go to the home page</a>
+      </div>
+      {% endfor %}
     {% else %}
       <p>No items found.</p>
     {% endif %}
-    <div class="home-link">
-      <a href="{% url 'home' %}">Go to the home page</a>
-    </div>
   </div>
 </body>
 </html>

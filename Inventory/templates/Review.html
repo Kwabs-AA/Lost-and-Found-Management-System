@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --border-color: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-form textarea,
+        .review-form input[type="text"] {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .review-form textarea:focus,
+        .review-form input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            font-size: 30px;
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #ffc107;
+        }
+
+        .review-form button {
+            align-self: flex-start;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .review-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .review-container {
+            margin-top: 40px;
+        }
+
+        .review {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .review:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .review p {
+            margin: 10px 0;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leave a Review</h1>
+        <form method="POST" class="review-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="uploader_name">Name of Upload:</label>
+                <textarea readonly id="uploader_name">{{lost_item.uploader_name}}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="review_text">Add comment:</label>
+                <textarea id="review_text" name="review_text" rows="4" placeholder="Write your review here..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Rating:</label>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="fas fa-star"></i></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="fas fa-star"></i></label>
+                </div>
+            </div>
+            
+            <button type="submit">Post Review</button>
+        </form>
+        
+        {% if reviews %}
+        <div class="review-container">
+            <h2>Recent Reviews</h2>
+            {% for review in reviews %}
+                <div class="review">
+                    <p><strong>Comment:</strong> {{review.review_text}}</p>
+                    <div class="review-meta">
+                        <span><i class="fas fa-user"></i> {{review.reviewer_name}}</span>
+                        <span><i class="fas fa-calendar-alt"></i> {{review.created_at}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

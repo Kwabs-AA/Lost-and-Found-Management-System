@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,request
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Lost
+from .models import Lost,Review
 
 # Create your views here.
 
@@ -56,14 +56,14 @@ def login_user(request):
         user = authenticate(request,username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect('home')
+            return redirect('temp')
         else:
             messages.error(request,"Login unsuccessful")
             return redirect('login')
     else:
         return render(request,'registration/login.html')
 
-
+@login_required
 def upload_file(request):
     if request.method == 'POST':
         category=request.POST.get('category')
@@ -72,6 +72,8 @@ def upload_file(request):
         indexNo=request.POST.get('lostindex')
         name=request.POST.get('name')
         location=request.POST.get('location')
+        
+        uploader_name= f"{request.user.first_name} {request.user.last_name}"
 
         if category != 'ID':
             indexNo = 0 
@@ -79,7 +81,7 @@ def upload_file(request):
                 messages.error(request,"Please fill the all the boxes")
                 return redirect(request.META['HTTP_REFERER'])
             else:
-                lost=Lost(category=category,image=image,lostdesc=lostdesc,indexNo=indexNo,name=name,location=location)
+                lost=Lost(category=category,image=image,lostdesc=lostdesc,indexNo=indexNo,name=name,location=location,uploader_name=uploader_name)
                 lost.save()
                 return redirect('success')
         else:
@@ -89,7 +91,7 @@ def upload_file(request):
                 messages.error(request,"Please fill all the boxes")
                 return redirect(request.META['HTTP_REFERER'])
             else:
-                lost=Lost(category=category,image=image,lostdesc=lostdesc,indexNo=indexNo,name=name,location=location)
+                lost=Lost(category=category,image=image,lostdesc=lostdesc,indexNo=indexNo,name=name,location=location,uploader_name=uploader_name)
                 lost.save()
                 return redirect('success')            
     return render(request,'upload.html')
@@ -139,5 +141,33 @@ def search_file(request):
 
     return redirect('find')
 
-    
-        
+def review(request,lost_item_id):
+    lost_item = get_object_or_404(Lost, id=lost_item_id)
+
+    reviewer_name = request.user
+    uploader_name=lost_item.uploader_name
+
+    if request.method == 'POST':
+        review_text = request.POST.get('review_text')
+        rating = request.POST.get('rating')
+
+        if not review_text or not rating:
+            messages.error(request, 'Please fill out all fields.')
+        else:
+            Review.objects.create(
+                reviewer_name=reviewer_name,
+                lost_item=lost_item,
+                rating=rating,
+                review_text=review_text,
+                uploader_name=uploader_name
+            )
+            messages.success(request, 'Your review has been submitted successfully.')
+            return redirect('review', lost_item_id=lost_item_id)
+            
+
+    reviews = Review.objects.filter(uploader_name=uploader_name)
+
+    return render(request, 'review.html', {'lost_item': lost_item,'reviews': reviews,})        
+
+def temporary(request):
+    return render(request,'temporary.html')
