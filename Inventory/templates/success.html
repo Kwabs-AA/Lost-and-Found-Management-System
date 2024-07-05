@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Staatliches&display=swap" rel="stylesheet">
     <title>Success</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #fff;
             color: #333;
             margin: 0;
             padding: 0;
@@ -20,40 +21,70 @@
             text-align: center;
         }
         .container {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             max-width: 500px;
             width: 100%;
+            transform-origin: center;
+            animation: cartwheelSlam .3s ease-out forwards;
+        }
+        @keyframes cartwheelSlam {
+            0% {
+                transform: rotateZ(0deg) translateY(-500px);
+                opacity: 0;
+            }
+            50% {
+                transform: rotateZ(180deg) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: rotateZ(360deg) translateY(0);
+                opacity: 1;
+            }
         }
         .icon {
-            color: green;
+            color: #28a745;
             font-size: 100px;
+            animation: bounceIn 1s ease-out;
+        }
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
         }
         .message {
             margin-top: 20px;
         }
         .message h1 {
-            font-size: 24px;
+            font-family: 'Staatliches', sans-serif;
+            font-size: 28px;
             margin: 20px 0;
+            color: #333;
         }
         .message p {
-            font-size: 16px;
-            color: #666;
+            font-size: 18px;
+            color: #555;
         }
         @media (max-width: 600px) {
             .icon {
                 font-size: 80px;
             }
             .message h1 {
-                font-size: 20px;
+                font-size: 24px;
             }
         }
         .italic-text {
-            font-family: 'STIX Two Text', serif;
+            font-family: 'Roboto', serif;
             font-style: italic;
-            font-size: 27px;
+            font-size: 22px;
         }
     </style>
 </head>
@@ -61,7 +92,7 @@
     <div class="container">
         <i class="fas fa-check-circle icon"></i>
         <div class="message">
-            <h1><span class="italic-text"> Dear {{ name }}</span>, your upload was successful!</h1>
+            <h1><span class="italic-text">Dear {{ name }}</span>, your upload was successful!</h1>
             <p>Thank you for your submission. We have successfully received your upload.</p>
         </div>
     </div>

@@ -7,6 +7,8 @@
     {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     <style>
         :root {
             --primary-color: #3498db;
@@ -146,7 +148,7 @@
         <form method="POST" class="review-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="uploader_name">Name of Upload:</label>
+                <label for="uploader_name">Name of Uploader:</label>
                 <textarea readonly id="uploader_name">{{lost_item.uploader_name}}</textarea>
             </div>
             
@@ -166,7 +168,7 @@
                 </div>
             </div>
             
-            <button type="submit">Post Review</button>
+            <button type="submit" onclick="showValid()">Post Review</button>
         </form>
         
         {% if reviews %}
@@ -183,6 +185,8 @@
             {% endfor %}
         </div>
         {% endif %}
+        <a href="{% url 'home' %}">Home</a>
     </div>
+    <script src="{% static 'main.js' %}"></script>
 </body>
 </html>

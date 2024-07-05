@@ -5,43 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LostX - Find What You've Lost</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     {% load static %}
     <style>
-           :root {
-      --primary-color: #3498db;
-      --secondary-color: #e74c3c;
-      --accent-color: #27ae60;
-      --bg-color: #ffffff;
-      --text-color: #333333;
-      --white: #ffffff;
-    }
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --accent-color: #27ae60;
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --white: #ffffff;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-    .container {
-      max-width: 1200px;
-      padding: 0 20px;
-      margin: 0 auto;
-      display: flex; /* Added display: flex for horizontal alignment */
-      justify-content: space-between; /* Align items to the left and right ends */
-    }
+        .container {
+            max-width: 1200px;
+            padding: 0 20px;
+            margin: 0 auto;
+            display: flex; /* Added display: flex for horizontal alignment */
+            justify-content: space-between; /* Align items to the left and right ends */
+        }
 
-    header {
-      background-color: var(--white);
-      padding: 20px 0; /* Removed top padding to eliminate white gap */
-    }
+        header {
+            background-color: var(--white);
+            padding: 20px 0; /* Removed top padding to eliminate white gap */
+        }
 
         .auth-buttons {
             display: flex;
@@ -50,15 +52,16 @@
 
         .btn-logout {
             padding: 10px 20px;
-            background-color: var(--secondary-color);
-            color: var(--white);
+            background-color: var(--white);
+            color: var(--secondary-color);
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
         .btn-logout:hover {
-            background-color: var(--accent-color);
+            background-color: var(--secondary-color);
+            color: var(--bg-color);
         }
 
         .hero {
@@ -67,7 +70,7 @@
             display: flex;
             align-items: center;
             text-align: center;
-            color: var(--text-color);
+            color: var(--white);
             padding: 0 20px;
             position: relative;
         }
@@ -102,8 +105,8 @@
         }
 
         .cta-button {
-            background-color: var(--accent-color);
-            color: var(--white);
+            background-color: var(--white);
+            color: var( --text-color);
             padding: 15px 40px;
             font-size: 18px;
             border: none;
@@ -118,11 +121,12 @@
         .cta-button:hover {
             background-color: #2ecc71;
             transform: translateY(-2px);
+            color: var(--bg-color);
         }
 
-        .services {
-            padding: 100px 20px;
-            background-color: var(--white);
+          .services {
+            padding: 50px 20px;
+            background-color: var(--bg-color);
         }
 
         .services h2 {
@@ -141,9 +145,10 @@
         .service-item {
             text-align: center;
             padding: 30px;
-            background-color: #f0f0f0;
+            background-color: var(--white);
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .service-item:hover {
@@ -186,9 +191,44 @@
             display: flex;
             justify-content: flex-end;
             padding: 20px;
-            background: linear-gradient(135deg, #ffcc33, #ff6699); /* Same background as the hero section */
+            background: linear-gradient(135deg, #ffcc33, #ff6699);
         }
 
+        .footer {
+            background: linear-gradient(135deg, #ffcc33, #ff6699);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        .footer a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer .social-icons {
+            margin-top: 20px;
+        }
+
+        .footer .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer .social-icons a:hover {
+            transform: translateY(-2px);
+        }
 
         @media (max-width: 768px) {
             .hero h1 {
@@ -222,7 +262,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Welcome to LostX</h1>
-            <p>Your one-stop solution for finding lost items.</p>
+            <p>Don't Panic, It's LostX!</p>
             <div class="cta-buttons">
                 <a href="#services" class="cta-button">Get Started</a>
             </div>
@@ -247,9 +287,20 @@
                 <img src="https://static.wixstatic.com/media/becf7a_306d6ab7b39a40429074e65df147bb03~mv2.jpg/v1/fill/w_326,h_218,fp_0.50_0.50,q_80,usm_0.66_1.00_0.01,enc_auto/becf7a_306d6ab7b39a40429074e65df147bb03~mv2.jpg" alt="Service Image">
                 <h3>Item Administration</h3>
                 <p>Apply to be an administrator of the community</p>
-                <a href="#" class="btn">Learn More</a>
+                <a href="#services" class="btn" onclick="showAlert()">Learn More</a>
             </div>
         </div>
     </section>
+    <footer class="footer">
+        <p>&copy; 2024 LostX. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+    <script src="{% static 'main.js' %}"></script>
 </body>
 </html>

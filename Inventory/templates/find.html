@@ -3,123 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Page</title>
+    <title>Find Your Lost Item</title>
     {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffcc33, #ff6699);;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
             padding: 20px;
         }
         .container {
-            position: relative;
-            background: url('https://img.freepik.com/free-vector/stylish-faq-symbol-fluid-background-think-ask-doubt-vector_1017-45804.jpg?t=st=1718972602~exp=1718976202~hmac=684b4d342c1c92bd79db827cac66b246a9eb2cb6d07f7430731f3f6ee8d5208d&w=740') no-repeat center center fixed;
-            background-size: cover;
-            max-width: 900px; 
+            background: wheat;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            max-width: 1000px;
             width: 100%;
-            height: auto; 
+        }
+        .content-wrapper {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 20px; 
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
-            flex-wrap: wrap;
+            align-items: stretch;
+            gap: 30px;
         }
-        .picture-frame {
+        .form-side {
             flex: 1;
-            height: auto;
-            background: rgba(255, 255, 255, 0.8); 
-            border-radius: 10px;
-            margin: 10px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow */
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        form {
-            background-color: rgba(255, 255, 255, 0.9); /* Faint white background */
-            padding: 30px;
-            border-radius: 10px;
-            margin: 10px;
+        .image-side {
             flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: url('data:image/png;base64,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') no-repeat center center;
+            background-size: cover;
+            border-radius: 15px;
+            min-height: 400px;
         }
-        select, input[type="text"], button {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
+        h2 {
+            color: black;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        select, input[type="text"] {
+            background: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px;
+            color: #ffffff;
             font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        select:focus, input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+        select option {
+            background: #764ba2;
+            color: #ffffff;
         }
         button {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
+            background: greenyellow;
             border: none;
-            padding: 12px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 15px;
             font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(45deg, #feca57, #ff6b6b);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
         }
         .alert {
-            margin-bottom: 20px;
-            width: 100%;
+            background: red;
+            border: none;
+            color: #ffffff;
+            border-radius: 8px;
         }
         .close {
-            font-size: 20px;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="picture-frame">
-            <!-- Left side content (picture frame) -->
+        <div class="content-wrapper">
+            <div class="form-side">
+                <h2>Locate Your Lost Item</h2>
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for message in messages %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>    
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form method="POST" action="{% url 'search_file' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <select class="form-control" id="category" name="category" onclick="additional()">
+                            <option value="">Select Category</option>
+                            <option value="ID">ID</option>
+                            <option value="Personal Belongings">Personal Belongings</option>
+                            <option value="Devices">Devices</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="desc" placeholder="Enter color description" id="lostdesc">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="indexNo" placeholder="Enter student's index number" id="lostindex">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Enter item name (e.g., bag, iPhone)" id="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Locate Item</button>
+                </form>
+            </div>
+            <div class="image-side">
+                <!-- This div will be filled with the background image -->
+            </div>
         </div>
-        {% if messages %}
-            <div class="alert-container">
-                {% for message in messages %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>    
-                {% endfor %}
-            </div>
-        {% endif %}
-        <form method="POST" action="{% url 'search_file' %}">
-            {% csrf_token %}
-            <h2>Locate Your Item</h2>
-            <div class="form-group">
-                <select class="form-control" id="category" name="category" onclick="additional()">
-                    <option value="">Select Category</option>
-                    <option value="ID">ID</option>
-                    <option value="Personal Belongings">Personal Belongings</option>
-                    <option value="Devices">Devices</option>
-                </select>
-            </div>
-            <input type="text" name="desc" placeholder="Enter color description over" id="lostdesc">
-            <input type="text" name="indexNo" placeholder="Enter missing student's index number here" class="index" id="lostindex">
-            <input type="text" name="name" placeholder="Enter the Belongings/device name e.g., bag, purse, iPhone" id="name">
-            <button type="submit" class="btn btn-primary btn-block">Locate</button>
-            <script src="{% static 'find.js' %}"></script>
-        </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'find.js' %}"></script>
 </body>
 </html>
-
-     

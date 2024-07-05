@@ -4,19 +4,15 @@ document.addEventListener("DOMContentLoaded", function() {
         var lostindexInput = document.getElementById("lostindex");
         var lostdescInput = document.getElementById("lostdesc");
         var lostname = document.getElementById("name");
-      
-
+        
         if (category === "ID") {
-            lostindexInput.style.display = "block";
-            lostdescInput.style.display = "none";
-            lostname.style.display = "none";
-            
-        } else if (category === "") {
-            alert("please choose a category");
+            lostindexInput.parentElement.style.display = "block";
+            lostdescInput.parentElement.style.display = "none";
+            lostname.parentElement.style.display = "none";
         } else {
-            lostindexInput.style.display = "none";
-            lostdescInput.style.display = "block";
-            lostname.style.display = "block";
+            lostindexInput.parentElement.style.display = "none";
+            lostdescInput.parentElement.style.display = "block";
+            lostname.parentElement.style.display = "block";
         }
     }
 

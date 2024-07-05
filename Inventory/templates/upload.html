@@ -3,112 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Page</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Lost & Found Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     {% load static %}
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f39c12;
+            --accent-color: #2ecc71;
+            --bg-color: #f4f7f9;
+            --text-color: #333;
+            --light-text: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
         .container {
-            position: relative;
-            background: url('') no-repeat center center fixed;
-            background-size: cover;
-            width: 900px; 
-            height: 600px; 
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px; 
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            border-radius: 20px;
+            flex-direction: column;
         }
-        .picture-frame {
-            width: 500px; 
-            height: calc(100% - 100px);
-            background: url(https://img.freepik.com/free-vector/stylish-faq-symbol-fluid-background-think-ask-doubt-vector_1017-45804.jpg?t=st=1718972602~exp=1718976202~hmac=684b4d342c1c92bd79db827cac66b246a9eb2cb6d07f7430731f3f6ee8d5208d&w=740) no-repeat center center;
-            border-radius:10px ;
-            background-size: cover;
-            padding: 20px; 
+
+        header {
+            background: linear-gradient(135deg, #ffcc33, #ff6699);
+            padding: 2rem;
+            text-align: center;
+            color: var(--light-text);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            flex-grow: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-right: 1px solid #ccc; /* Divider between frame and form */
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow */
+            padding: 3rem 1rem;
         }
-        form {
-            background-color: rgba(255, 255, 255, 0.9); /* Faint white background */
-            padding: 30px;
-            border-radius: 10px;
-            width: calc(100% - 320px); /* Adjust for spacing */
-        }
-        select, input[type="file"], input[type="text"], input[type="submit"] {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        .form-container {
+            background: var(--light-text);
+            border-radius: 12px;
+            padding: 2.5rem;
             width: 100%;
-            font-size: 16px;
+            max-width: 500px;
+            box-shadow: var(--shadow);
         }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        select, input[type="file"], input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        input[type="file"] {
+            padding: 0.6rem 1rem;
+            background: var(--bg-color);
+            cursor: pointer;
+        }
+
         input[type="submit"] {
-            background-color: #28a745;
-            color: #fff;
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            font-weight: 600;
             cursor: pointer;
             border: none;
-            padding: 12px;
-            font-size: 18px;
+            transition: all 0.3s ease;
         }
+
         input[type="submit"]:hover {
-            background-color: #218838;
+            background-color: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
         }
+
         .alert {
-            margin-bottom: 20px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            background-color: #fef5e7;
+            color: #c0392b;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
         }
-        .close {
-            font-size: 20px;
+
+        .alert i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .form-icon {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-icon i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="picture-frame">
-            <!-- Left side content (picture frame) -->
+        <header>
+            <h1>Lost & Found Hub</h1>
+            <p class="tagline">Report and recover lost items with ease</p>
+        </header>
+        <div class="content">
+            <div class="form-container">
+                <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert" role="alert">
+                                <i class="fas fa-exclamation-circle"></i>
+                                {{ message }}
+                            </div>    
+                        {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="form-icon">
+                            <i class="fas fa-list-alt"></i>
+                            <label for="category">Category</label>
+                        </div>
+                        <select name="category" id="category" required>
+                            <option value="">Choose category...</option>
+                            <option value="ID">ID</option>
+                            <option value="Personal Belongings">Personal Belongings</option>
+                            <option value="Devices">Devices</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-icon">
+                            <i class="fas fa-camera"></i>
+                            <label for="imageFile">Image</label>
+                        </div>
+                        <input type="file" name="image" accept="image/*" capture="environment" id="imageFile" required>
+                    </div>
+                    <div class="form-group" id="lostdescGroup">
+                        <div class="form-icon">
+                            <i class="fas fa-palette"></i>
+                            <label for="lostdesc">Color Description</label>
+                        </div>
+                        <input type="text" name="lostdesc" id="lostdesc" placeholder="Enter color description">
+                    </div>
+                    <div class="form-group" id="lostindexGroup">
+                        <div class="form-icon">
+                            <i class="fas fa-id-card"></i>
+                            <label for="lostindex">Student Index Number</label>
+                        </div>
+                        <input type="text" name="lostindex" id="lostindex" placeholder="Enter missing student's index number">
+                    </div>
+                    <div class="form-group" id="nameGroup">
+                        <div class="form-icon">
+                            <i class="fas fa-tag"></i>
+                            <label for="name">Item Name</label>
+                        </div>
+                        <input type="text" name="name" id="name" placeholder="Enter the item name (e.g., bag, iPhone)">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <label for="location">Drop-off Location</label>
+                        </div>
+                        <input type="text" name="location" id="location" placeholder="Type the drop off location" required>
+                    </div>
+                    <input type="submit" value="Submit Report">
+                </form>
+            </div>
         </div>
-        <form method="post" action="{% url 'upload_file' %}" enctype="multipart/form-data">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>    
-                {% endfor %}
-            {% endif %}
-            {% csrf_token %}
-            <select name="category" id="category" onchange="additional()">
-                <option value="">Choose category...</option>
-                <option value="ID">ID</option>
-                <option value="Personal Belongings">Personal Belongings</option>
-                <option value="Devices">Devices</option>
-            </select>
-            <input type="file" name="image" accept="image/*" capture="environment" id="imageFile">
-            <input type="text" name="lostdesc" placeholder="Enter color description over" id="lostdesc">
-            <input type="text" name="lostindex" placeholder="Enter missing student's index number here" class="index" id="lostindex">
-            <input type="text" name="name" placeholder="Enter the Belongings/device name e.g., bag, purse, iPhone" id="name">
-            <input type="text" name="location" placeholder="Type the drop off location here" id="location">
-            <input type="submit" value="Submit">
-        </form>
     </div>
+
     <script src="{% static 'upload.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

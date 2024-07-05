@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.http import HttpResponse,request
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -141,6 +140,7 @@ def search_file(request):
 
     return redirect('find')
 
+@login_required
 def review(request,lost_item_id):
     lost_item = get_object_or_404(Lost, id=lost_item_id)
 
@@ -171,3 +171,6 @@ def review(request,lost_item_id):
 
 def temporary(request):
     return render(request,'temporary.html')
+
+def alt1(request):
+    return render(request,'alt1.html')
