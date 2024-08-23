@@ -58,7 +58,7 @@
             border: none;
             border-radius: 8px;
             padding: 15px;
-            color: #ffffff;
+            color: black;
             font-size: 16px;
             transition: all 0.3s ease;
         }
@@ -67,8 +67,8 @@
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
         }
         select option {
-            background: #764ba2;
-            color: #ffffff;
+            background: beige;
+            color: black;
         }
         button {
             background: greenyellow;
@@ -123,21 +123,32 @@
                 <form method="POST" action="{% url 'search_file' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <select class="form-control" id="category" name="category" onclick="additional()">
-                            <option value="">Select Category</option>
+                        <select class="form-control" id="category" name="category" onchange="additional()">
+                            <option value="">Choose category...</option>
                             <option value="ID">ID</option>
-                            <option value="Personal Belongings">Personal Belongings</option>
-                            <option value="Devices">Devices</option>
+                            <option value="Wallet">Wallet</option>
+                            <option value="Keys">Keys</option>
+                            <option value="Phone">Phone</option>
+                            <option value="Laptop">Laptop</option>
+                            <option value="Tablet">Tablet</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Backpack">Backpack</option>
+                            <option value="Headphones">Headphones</option>
+                            <option value="Glasses">Glasses</option>
+                            <option value="Books">Books</option>
+                            <option value="Documents">Documents</option>
+                            <option value="Other">Other</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Enter item name" id="name">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="desc" placeholder="Enter color description" id="lostdesc">
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="indexNo" placeholder="Enter student's index number" id="lostindex">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Enter item name (e.g., bag, iPhone)" id="name">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Locate Item</button>
                 </form>

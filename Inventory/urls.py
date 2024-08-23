@@ -12,6 +12,5 @@ urlpatterns=[
     path('logout/',views.logout_view,name="logout"),
     path('search_file/',views.search_file,name="search_file"),
     path('review/<int:lost_item_id>/',views.review,name="review"),
-    path('temp/',views.temporary,name="temp"),
-    path('alt1/',views.alt1,name="alt1")
+    path('admin-panel',views.admin_view,name="adminPanel"),
 ]

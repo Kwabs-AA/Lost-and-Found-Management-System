@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Page</title>
-    {% load static %}
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -42,6 +41,68 @@
             color: var(--primary-color);
         }
 
+        .uploader-profile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .uploader-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .uploader-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .badge i {
+            margin-right: 5px;
+        }
+
+        .badge.Proven { background-color: greenyellow; }
+        .badge.Reliable { background-color: blue; }
+        .badge.Trustworthy { background-color: gold; }
+        .badge.special { 
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
         .review-form {
             display: flex;
             flex-direction: column;
@@ -58,8 +119,7 @@
             margin-bottom: 5px;
         }
 
-        .review-form textarea,
-        .review-form input[type="text"] {
+        .review-form textarea {
             padding: 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
@@ -67,8 +127,7 @@
             transition: border-color 0.3s ease;
         }
 
-        .review-form textarea:focus,
-        .review-form input[type="text"]:focus {
+        .review-form textarea:focus {
             outline: none;
             border-color: var(--primary-color);
         }
@@ -137,21 +196,65 @@
         .review-meta {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             color: #7f8c8d;
             font-size: 14px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .stars {
+            display: inline-flex;
+            margin-left: 10px;
+        }
+
+        .stars i {
+            color: #ffc107;
+            font-size: 16px;
+        }
+
+        .home-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .home-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Leave a Review</h1>
+        <label for="review_text">Reporter's name</label>
+        <br>
+        <div class="uploader-profile">
+            <div class="uploader-info">
+                <div class="profile-image">
+                    {{ lost_item.uploader_name|first|upper }}
+                </div>
+                <div class="uploader-name">{{ lost_item.uploader_name }}</div>
+            </div>
+            {% if reviewers_badges %}
+            {% for badge_type in reviewers_badges.values %}
+                {% if forloop.first %}
+                    <span class="badge {{ badge_type }}">
+                        <i class="fas fa-award"></i>
+                        {{ badge_type|title }}
+                    </span>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        
         <form method="POST" class="review-form">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="uploader_name">Name of Uploader:</label>
-                <textarea readonly id="uploader_name">{{lost_item.uploader_name}}</textarea>
-            </div>
-            
             <div class="form-group">
                 <label for="review_text">Add comment:</label>
                 <textarea id="review_text" name="review_text" rows="4" placeholder="Write your review here..."></textarea>
@@ -168,7 +271,7 @@
                 </div>
             </div>
             
-            <button type="submit" onclick="showValid()">Post Review</button>
+            <button type="submit">Post Review</button>
         </form>
         
         {% if reviews %}
@@ -176,17 +279,27 @@
             <h2>Recent Reviews</h2>
             {% for review in reviews %}
                 <div class="review">
-                    <p><strong>Comment:</strong> {{review.review_text}}</p>
+                    <p>{{ review.review_text }}</p>
                     <div class="review-meta">
-                        <span><i class="fas fa-user"></i> {{review.reviewer_name}}</span>
-                        <span><i class="fas fa-calendar-alt"></i> {{review.created_at}}</span>
+                        <div class="reviewer-info">
+                            <span><i class="fas fa-user"></i> {{ review.reviewer_name }}</span>
+                            <div class="stars">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                    {% else %}
+                                        <i class="fas fa-star" style="color: #ddd;"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <span><i class="fas fa-calendar-alt"></i> {{ review.created_at }}</span>
                     </div>
                 </div>
             {% endfor %}
         </div>
         {% endif %}
-        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'home' %}" class="home-link">Back to Home</a>
     </div>
-    <script src="{% static 'main.js' %}"></script>
 </body>
 </html>

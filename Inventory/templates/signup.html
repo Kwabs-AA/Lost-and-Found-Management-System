@@ -3,94 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
+    <title>Sleek Signup Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background: linear-gradient(135deg, #71b7e6, #9b59b6);
-      }
-      
-      .signup-form {
-        background: white;
-        padding: 0em 10em;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 400px;
-      }
-      
-      .signup-form h2 {
-        margin-bottom: 1em;
-        color: #333;
-        text-align: center;
-      }
-      
-      .form-group {
-        margin-bottom: 1em;
-      }
-      
-      .form-group label {
-        display: block;
-        margin-bottom: 0.5em;
-        color: #333;
-      }
-      
-      .signup-form input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 1em;
-      }
-      
-      .signup-form input:focus {
-        outline: none;
-        border-color: #9b59b6;
-      }
-      
-      .signup-form button {
-        background: #9b59b6
-      }
-      </style>
+        :root {
+            --primary-color: #f39c12;
+            --secondary-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        .header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 30px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .form {
+            padding: 30px 40px;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-control label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control input {
+            border: none;
+            border-bottom: 2px solid #f0f0f0;
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .form-control input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .form-control i {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            color: #999;
+        }
+
+        .form button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            display: block;
+            font-size: 16px;
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form button:hover {
+            opacity: 0.8;
+        }
+
+        .form-control small {
+            color: var(--secondary-color);
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            visibility: hidden;
+        }
+
+        .form-control.error small {
+            visibility: visible;
+        }
+    </style>
 </head>
 <body>
-    <form class="signup-form" method="POST">
-        <h2>Sign Up</h2>
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" placeholder="Enter Username">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="firstname">First Name:</label>
-          <input type="text" id="firstname" name="firstname" placeholder="Enter First Name">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="lastname">Last Name:</label>
-          <input type="text" id="lastname" name="lastname" placeholder="Enter Last Name">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="password1">Password:</label>
-          <input type="password" id="password1" name="password1" placeholder="Enter Password">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="password2">Confirm Password:</label>
-          <input type="password" id="password2" name="password2" placeholder="Confirm Password">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="indexno">Index Number:</label>
-          <input type="number" id="indexno" name="indexno" placeholder="Enter Index Number">
-          <span class="error-message"></span> </div>
-        <div class="form-group">
-          <label for="email">Email Address:</label>
-          <input type="email" id="email" name="email" placeholder="Enter Email Address">
-          <span class="error-message"></span> </div>
-        <button type="submit">Sign Up</button>
-      </form>
+    <div class="container">
+        <div class="header">
+            <h2>Create Account</h2>
+        </div>
+        <form class="form" id="form" method="POST">
+            {% csrf_token %}
+            <div class="form-control">
+                <label for="username">Username</label>
+                <input type="text" placeholder="florinpop17" id="username" name="username" />
+                <i class="fas fa-user"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" placeholder="a@florin-pop.com" id="email" name="email" />
+                <i class="fas fa-envelope"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" id="password" name="password1" />
+                <i class="fas fa-lock"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="password2">Confirm Password</label>
+                <input type="password" placeholder="Password two" id="password2" name="password2" />
+                <i class="fas fa-lock"></i>
+                <small>Error message</small>
+            </div>
+            <div class="form-control">
+                <label for="indexno">Index Number</label>
+                <input type="number" placeholder="Your index number" id="indexno" name="indexno" />
+                <i class="fas fa-hashtag"></i>
+                <small>Error message</small>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Analytics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5a623;
+            --accent-color: #50e3c2;
+            --background-color: #f4f7fc;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --text-light: #777777;
+            --border-radius: 15px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            display: block;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 600;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        p {
+            margin: 5px 0;
+            color: var(--text-light);
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .stat {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--background-color);
+            padding: 10px;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .card ul li strong {
+            color: var(--text-color);
+        }
+
+        .card ol li {
+            background-color: var(--background-color);
+            padding: 10px;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card ol li strong {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Lost & Found Analytics Dashboard</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="dashboard">
+            <div class="card">
+                <h2>Lost Items Overview</h2>
+                <div class="stat">{{ total_lost_items }}</div>
+                <p>Total Lost Items</p>
+                <h3>Top 5 Categories</h3>
+                <div class="chart-container">
+                    <canvas id="categoriesChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Location Insights</h2>
+                <h3>Top 5 Locations</h3>
+                <div class="chart-container">
+                    <canvas id="locationsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Review Analytics</h2>
+                <div class="stat">{{ avg_rating|floatformat:1 }}</div>
+                <p>Average Rating</p>
+                <h3>Rating Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="ratingsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>Badges Summary</h2>
+                <div class="stat">{{ total_badges }}</div>
+                <p>Total Badges Awarded</p>
+                <h3>Badge Types</h3>
+                <ul>
+                    {% for badge_type, count in badge_types.items %}
+                        <li><strong>{{ badge_type }}:</strong> {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2>Top Contributors</h2>
+                <ol>
+                    {% for contributor in top_contributors %}
+                        <li>
+                            <strong>{{ contributor.uploader_name }}</strong><br>
+                            Badge: {{ contributor.get_badge_type }}, Count: {{ contributor.count }}
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Categories Chart
+        var ctxCategories = document.getElementById('categoriesChart').getContext('2d');
+        new Chart(ctxCategories, {
+            type: 'doughnut',
+            data: {
+                labels: [{% for category in top_5_categories %}'{{ category.category }}',{% endfor %}],
+                datasets: [{
+                    data: [{% for category in top_5_categories %}{{ category.count }},{% endfor %}],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    borderWidth: 2,
+                    hoverBackgroundColor: ['#FF5077', '#329FDC', '#FFB74C', '#3ABBB5', '#8F5AFF']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'right',
+                    labels: {
+                        fontSize: 14,
+                        boxWidth: 15
+                    }
+                }
+            }
+        });
+
+        // Locations Chart
+        var ctxLocations = document.getElementById('locationsChart').getContext('2d');
+        new Chart(ctxLocations, {
+            type: 'bar',
+            data: {
+                labels: [{% for location in top_5_locations %}'{{ location.location }}',{% endfor %}],
+                datasets: [{
+                    label: 'Number of Items',
+                    data: [{% for location in top_5_locations %}{{ location.count }},{% endfor %}],
+                    backgroundColor: '#4a90e2',
+                    borderColor: '#357ABD',
+                    borderWidth: 1,
+                    hoverBackgroundColor: '#357ABD',
+                    hoverBorderColor: '#285A8E'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        // Ratings Chart
+        var ctxRatings = document.getElementById('ratingsChart').getContext('2d');
+        new Chart(ctxRatings, {
+            type: 'line',
+            data: {
+                labels: [{% for rating in rating_distribution %}'{{ rating.rating }} stars',{% endfor %}],
+                datasets: [{
+                    label: 'Number of Reviews',
+                    data: [{% for rating in rating_distribution %}{{ rating.count }},{% endfor %}],
+                    borderColor: '#f5a623',
+                    backgroundColor: 'rgba(245, 166, 35, 0.1)',
+                    pointBackgroundColor: '#f5a623',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    lineTension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 14
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 14
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    </script>
+</body>
+</html>

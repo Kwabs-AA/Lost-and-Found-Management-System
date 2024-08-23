@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Lost,Review
+from .models import Lost,Review,Badges
 
 # Register your models here.
 
@@ -15,3 +15,9 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter=('rating',)
 
 admin.site.register(Review,ReviewAdmin)
+
+
+class BadgesAdmin(admin.ModelAdmin):
+    list_display=('count','uploader_name')
+
+admin.site.register(Badges,BadgesAdmin)

@@ -29,12 +29,13 @@
                             {% csrf_token %}
                             {% if messages %}
                             {% for message in messages %}
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             {% endfor %}
                             {% endif %}
+
                             <div class="form-group form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username" required>
                                 <label for="floatingInput"></label>
