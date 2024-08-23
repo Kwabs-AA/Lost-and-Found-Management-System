@@ -117,7 +117,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for static files collection
+
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','staticfiles')  # Directory for static files collection
+STATICFILES_DIRS=os.path.join(BASE_DIR,'staticfiles')
 
 # Media files configuration
 MEDIA_URL = '/lost_images/'
