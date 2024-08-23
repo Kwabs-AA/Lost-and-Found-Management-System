@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url  # Ensure this is added to requirements.txt
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,14 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9d)63pguq85_ru)p78z^q_8d5k(@v0l5a^fd-&$u-#r%&1rl5!'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')  # Use environment variable for production
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'  # Use environment variable to control debug mode
 
-ALLOWED_HOSTS = ['.vercel.app']
-
-
+ALLOWED_HOSTS = ['.vercel.app', 'your-app-name.vercel.app']  # Add your specific Vercel domain or custom domain here
 
 # Application definition
 
@@ -77,10 +76,9 @@ WSGI_APPLICATION = 'LostNFound.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3')  # Use PostgreSQL or other database in production
+    )
 }
 
 
@@ -118,17 +116,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for static files collection
+
+# Media files configuration
+MEDIA_URL = '/lost_images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'lost_images')  # Directory for media files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL="/login/"
+LOGIN_URL = "/login/"
 
-SESSION_COOKIE_AGE = 900 # 3 minutes. "1209600(2 weeks)" by default 
-SESSION_SAVE_EVERY_REQUEST = True # "False" by default
+SESSION_COOKIE_AGE = 900  # 3 minutes. "1209600(2 weeks)" by default
+SESSION_SAVE_EVERY_REQUEST = True  # "False" by default
 
-MEDIA_URL = '/lost_images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
+# Security settings for production
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
