@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SweetAlert Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+    <button onclick="showAlert()">Show SweetAlert</button>
+    <script>
+        function showAlert() {
+            Swal.fire({
+                title: 'Custom alert',
+                text: 'This is a custom alert box using SweetAlert!',
+                icon: 'info',
+                timer: 1500,
+            });
+        }
+    </script>
+</body>
+</html>
