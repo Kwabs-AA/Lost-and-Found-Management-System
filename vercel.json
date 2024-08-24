@@ -16,13 +16,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "manage.py"
+      "dest": "/manage.py"
     }
-  ],
-  "functions": {
-    "manage.py": {
-      "runtime": "python3.12",
-      "handler": "LostNFound.wsgi.application"
-    }
-  }
+  ]
 }
