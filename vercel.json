@@ -18,12 +18,6 @@
       "src": "/(.*)",
       "dest": "manage.py"
     }
-  ],
-  "functions": {
-      "api/**/*.py": {
-        "runtime": "python3.12",
-        "handler": "manage.app" // or manage.handler, depending on your setup
-      }
-    }
+  ]
 }
 
