@@ -23,8 +23,6 @@ def findview(request):
 
 def signup(request):
     if request.method == 'POST':
-        first_name = request.POST['firstname']
-        last_name = request.POST['lastname']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         email = request.POST['email']
@@ -43,7 +41,7 @@ def signup(request):
             messages.error(request, "Email already exists")
             return redirect('signup')
 
-        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, password=password1, email=email)
+        user = User.objects.create_user(username=username,password=password1, email=email)
         user.save()
         messages.success(request, "You have successfully registered. Please enter the details in the right field to login")
         return redirect('login')
