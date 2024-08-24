@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "wsgi.py",
+      "src": "manage.py",
       "use": "@vercel/python"
     }
   ],
@@ -16,7 +16,14 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/wsgi.py"
+      "dest": "manage.py"
     }
-  ]
+  ],
+  "functions": {
+      "api/**/*.py": {
+        "runtime": "python3.12",
+        "handler": "manage.app" // or manage.handler, depending on your setup
+      }
+    }
 }
+
