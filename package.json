@@ -1,0 +1,12 @@
+{
+    "name": "lost-and-found-management-system",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "gunicorn LostNFound.wsgi",
+      "dev": "python manage.py runserver"
+    },
+    "dependencies": {
+      "gunicorn": "^20.1.0"
+    }
+  }
+  
