@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "wsgi.py",
+      "src": "manage.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.10"
@@ -19,7 +19,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/wsgi.py"
+      "dest": "/manage.py"
     }
   ]
 }
