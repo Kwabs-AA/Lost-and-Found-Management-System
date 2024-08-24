@@ -9,15 +9,15 @@ from collections import Counter
 
 # Create your views here.
 
-@login_required
+#@login_required
 def home(request):
     return render(request, 'temporary.html', {'name': request.user.first_name})
 
-@login_required
+##@login_required
 def uploadview(request):
     return render(request, 'upload.html')
 
-@login_required
+#@login_required
 def findview(request):
     return render(request, 'find.html')
 
@@ -64,7 +64,7 @@ def login_user(request):
     else:
         return render(request, 'registration/login.html')
 
-@login_required
+#@login_required
 def upload_file(request):
     if request.method == 'POST':
         category = request.POST.get('category')
@@ -105,7 +105,7 @@ def upload_file(request):
                 return redirect('success')
     return render(request, 'upload.html')
 
-@login_required
+#@login_required
 def success(request):
     return render(request, 'success.html', {"name": request.user.first_name})
 
@@ -146,7 +146,7 @@ def search_file(request):
 
     return redirect('find')
 
-@login_required
+#@login_required
 def review(request, lost_item_id):
     lost_item = get_object_or_404(Lost, id=lost_item_id)
 
