@@ -8,7 +8,7 @@ from django.core.wsgi import get_wsgi_application
 # Set the settings module according to your Django project's settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LostNFound.settings')
 
-application = get_wsgi_application()
+app = application = get_wsgi_application()
 
 def main():
     """Run administrative tasks."""
@@ -27,4 +27,4 @@ if __name__ == '__main__':
 
 # Handler for Vercel
 def handler(event, context):
-    return application(event.get('body', ''), context)
+    return app(event.get('body', ''), event)

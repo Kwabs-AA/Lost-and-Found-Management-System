@@ -1,25 +1,15 @@
 {
   "builds": [
     {
-      "src": "manage.py",
+      "src": "LostNFound/wsgi.py",
       "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.12.5"
-      }
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     }
   ],
   "routes": [
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/media/(.*)",
-      "dest": "/media/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/manage.py"
+      "dest": "LostNFound/wsgi.py"
     }
   ]
 }
