@@ -186,7 +186,7 @@ def review(request, lost_item_id):
         'reviewers_badges': reviewers_badges,
     }
 
-    return render(request, 'review.html', context)
+    return render(request, 'Review.html', context)
 
 def admin_view(request):
     total_lost_items = Lost.objects.count()
