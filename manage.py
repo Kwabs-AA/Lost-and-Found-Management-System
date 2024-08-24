@@ -3,15 +3,9 @@
 import os
 import sys
 
-from django.core.wsgi import get_wsgi_application
-
-# Set the settings module according to your Django project's settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LostNFound.settings')
-
-app = application = get_wsgi_application()
-
 def main():
     """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LostNFound.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -24,7 +18,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# Handler for Vercel
-def handler(event, context):
-    return app(event.get('body', ''), event)
