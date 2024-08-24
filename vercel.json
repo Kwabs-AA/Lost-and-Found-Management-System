@@ -3,13 +3,10 @@
     {
       "src": "LostNFound/wsgi.py",
       "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.10" }
-    },
-    {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "staticfiles"
+      "config": { 
+        "maxLambdaSize": "15mb", 
+        "runtime": "python3.10",
+        "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput"
       }
     }
   ],
