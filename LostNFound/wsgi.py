@@ -8,11 +8,9 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/wsgi/
 """
 
 import os
-
 from django.core.wsgi import get_wsgi_application
 
+# Set the settings module according to your Django project's settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LostNFound.settings')
 
 application = get_wsgi_application()
-app=application
-
