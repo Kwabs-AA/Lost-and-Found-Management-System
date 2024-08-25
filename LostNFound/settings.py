@@ -16,7 +16,7 @@ ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 # Supabase settings
 SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://vlekfpircixtdahkbtmc.supabase.co')
 SUPABASE_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsZWtmcGlyY2l4dGRhaGtidG1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1ODA4ODcsImV4cCI6MjA0MDE1Njg4N30.iz9fO46-VFlDKhVE1Gbrsb5moLDQfrJRRQzTheb4eZw')
-SUPABASE_BUCKET = os.environ.get('SUPABASE_BUCKET', 'Lostimage')
+SUPABASE_BUCKET = os.environ.get('SUPABASE_BUCKET', 'media')
 
 # Use custom storage
 DEFAULT_FILE_STORAGE = 'Inventory.storage.SupabaseStorage'
