@@ -1,15 +1,16 @@
 from pathlib import Path
 import os
 import dj_database_url
+from urllib.parse import quote_plus
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9d)63pguq85_ru)p78z^q_8d5k(@v0l5a^fd-&$u-#r%&1rl5!'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-9d)63pguq85_ru)p78z^q_8d5k(@v0l5a^fd-&$u-#r%&1rl5!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
@@ -56,11 +57,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LostNFound.wsgi.application'
 
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://postgres.vyhvjnkjbeujpqgbzign:' + quote_plus('NBeE#5mxK7L2XQh') + '@aws-0-eu-west-1.pooler.supabase.com:6543/postgres')
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600
-    )
+    'default': dj_database_url.config(default=DATABASE_URL)
 }
 
 # Password validation
