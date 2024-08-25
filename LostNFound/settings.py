@@ -1,18 +1,25 @@
-from pathlib import Path
 import os
-import dj_database_url
-from urllib.parse import quote_plus
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-9d)63pguq85_ru)p78z^q_8d5k(@v0l5a^fd-&$u-#r%&1rl5!')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
-
+# Security settings
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-secret-key-here')
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
+
+# Supabase settings
+SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://vlekfpircixtdahkbtmc.supabase.co')
+SUPABASE_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsZWtmcGlyY2l4dGRhaGtidG1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1ODA4ODcsImV4cCI6MjA0MDE1Njg4N30.iz9fO46-VFlDKhVE1Gbrsb5moLDQfrJRRQzTheb4eZw')
+SUPABASE_BUCKET = os.environ.get('SUPABASE_BUCKET', 'Lostimage')
+
+# Use custom storage
+DEFAULT_FILE_STORAGE = 'Inventory.storage.SupabaseStorage'
 
 # Application definition
 INSTALLED_APPS = [
@@ -58,28 +65,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LostNFound.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://postgres.vyhvjnkjbeujpqgbzign:' + quote_plus('NBeE#5mxK7L2XQh') + '@aws-0-eu-west-1.pooler.supabase.com:6543/postgres')
-
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL)
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Internationalization
@@ -101,7 +99,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Authentication
 LOGIN_URL = "/login/"
 
+# Session settings
 SESSION_COOKIE_AGE = 900
 SESSION_SAVE_EVERY_REQUEST = True
