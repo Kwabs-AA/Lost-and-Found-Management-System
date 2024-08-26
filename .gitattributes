@@ -15,3 +15,4 @@
 # Ensure Python files and JSON files use LF line endings
 *.py text eol=lf
 *.json text eol=lf
+* text=auto
