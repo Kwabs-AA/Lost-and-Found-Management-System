@@ -3,11 +3,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Load environment variables
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,8 +14,8 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['.vercel.app', '127.0.0.1', 'localhost']
 
 # Supabase settings
-SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://vlekfpircixtdahkbtmc.supabase.co')
-SUPABASE_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsZWtmcGlyY2l4dGRhaGtidG1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1ODA4ODcsImV4cCI6MjA0MDE1Njg4N30.iz9fO46-VFlDKhVE1Gbrsb5moLDQfrJRRQzTheb4eZw')
+SUPABASE_URL = os.environ.get('SUPABASE_URL', 'https://vyhvjnkjbeujpqgbzign.supabase.co')
+SUPABASE_KEY = os.environ.get('SUPABASE_KEY', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5aHZqbmtqYmV1anBxZ2J6aWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1NjUyNjgsImV4cCI6MjA0MDE0MTI2OH0.6N3ueyuuQ7NzWfttn2hDAWOVnO4GzyrWHrRqvW-DVtc')
 SUPABASE_BUCKET = os.environ.get('SUPABASE_BUCKET', 'media')
 
 # Use custom storage
@@ -70,8 +67,12 @@ WSGI_APPLICATION = 'LostNFound.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Supabase database name
+        'USER': 'postgres.vyhvjnkjbeujpqgbzign',  # Supabase user
+        'PASSWORD': 'NBeE#5mxK7L2XQh',  # Supabase password
+        'HOST': 'aws-0-eu-west-1.pooler.supabase.com',  # Supabase host
+        'PORT': '6543',  # Supabase port
     }
 }
 
