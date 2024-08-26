@@ -3,23 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Modern Login Page</title>
     {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --input-border-color: #ced4da;
-            --input-focus-border-color: #80bdff;
-            --input-bg-color: #f8f9fa;
-            --button-bg-color: #007bff;
-            --button-hover-bg-color: #0056b3;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffcc33, #ff6699);
             margin: 0;
             padding: 0;
             display: flex;
@@ -30,93 +20,91 @@
 
         .container {
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 380px;
             max-width: 100%;
-            padding: 30px;
+            padding: 40px;
             box-sizing: border-box;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .header h2 {
-            color: var(--primary-color);
+            color: #333;
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
         }
 
-        .form {
-            display: flex;
-            flex-direction: column;
-        }
-
         .form-control {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .form-control label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
-            color: #333;
+            color: #555;
+            font-size: 14px;
         }
 
         .form-control input {
             width: 100%;
-            padding: 10px;
+            padding: 12px 15px;
             font-size: 16px;
             color: #333;
-            border: 1px solid var(--input-border-color);
-            border-radius: 4px;
-            background-color: var(--input-bg-color);
+            border: 1px solid #ddd;
+            border-radius: 5px;
             transition: border-color 0.3s ease;
         }
 
         .form-control input:focus {
-            border-color: var(--input-focus-border-color);
             outline: none;
+            border-color: #ff6699;
         }
 
         .form-control i {
             position: absolute;
             top: 40px;
-            right: 10px;
+            right: 15px;
             color: #999;
         }
 
-        .form button {
-            background-color: var(--button-bg-color);
+        button {
+            background: linear-gradient(135deg, #ffcc33, #ff6699);
             border: none;
             color: white;
             font-size: 16px;
             padding: 12px;
             margin-top: 10px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
         }
 
-        .form button:hover {
-            background-color: var(--button-hover-bg-color);
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
 
         .signup-link {
             text-align: center;
             margin-top: 20px;
-            color: var(--secondary-color);
+            color: #666;
+            font-size: 14px;
         }
 
         .signup-link a {
-            color: var(--primary-color);
+            color: #ff6699;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .signup-link a:hover {
@@ -124,12 +112,27 @@
         }
 
         .alert {
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background-color: #ffe6e6;
+            color: #ff3333;
+            border: 1px solid #ff9999;
+        }
+
+        .alert-success {
+            background-color: #e6ffe6;
+            color: #33cc33;
+            border: 1px solid #99ff99;
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="header">
             <h2>Login</h2>
@@ -138,9 +141,8 @@
             {% csrf_token %}
             {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <div class="alert alert-{{ message.tags }}">
                     {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             {% endfor %}
             {% endif %}
@@ -160,6 +162,5 @@
             </div>
         </form>
     </div>
-
 </body>
 </html>
