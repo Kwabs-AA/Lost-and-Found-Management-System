@@ -9,15 +9,15 @@ from collections import Counter
 
 # Create your views here.
 
-#@login_required
+@login_required
 def home(request):
     return render(request, 'temporary.html')
 
-#@login_required
+@login_required
 def uploadview(request):
     return render(request, 'upload.html')
 
-#@login_required
+@login_required
 def findview(request):
     return render(request, 'find.html')
 
