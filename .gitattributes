@@ -12,3 +12,6 @@
 *.html text eol=lf
 *.css text eol=lf
 *.js text eol=lf
+# Ensure Python files and JSON files use LF line endings
+*.py text eol=lf
+*.json text eol=lf
