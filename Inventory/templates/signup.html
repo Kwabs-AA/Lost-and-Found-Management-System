@@ -119,37 +119,37 @@
             {% csrf_token %}
             <div class="form-control">
                 <label for="firstname">First Name</label>
-                <input type="text" placeholder="John" id="firstname" name="firstname" />
+                <input type="text" placeholder="John" id="firstname" name="firstname" required/>
                 <i class="fas fa-user"></i>
                 <small>Error message</small>
             </div>
             <div class="form-control">
                 <label for="lastname">Last Name</label>
-                <input type="text" placeholder="Doe" id="lastname" name="lastname" />
+                <input type="text" placeholder="Doe" id="lastname" name="lastname" required/>
                 <i class="fas fa-user"></i>
                 <small>Error message</small>
             </div>
             <div class="form-control">
                 <label for="username">Username</label>
-                <input type="text" placeholder="johndoe" id="username" name="username" />
+                <input type="text" placeholder="johndoe" id="username" name="username" required />
                 <i class="fas fa-user"></i>
                 <small>Error message</small>
             </div>
             <div class="form-control">
                 <label for="email">Email</label>
-                <input type="email" placeholder="john@example.com" id="email" name="email" />
+                <input type="email" placeholder="john@example.com" id="email" name="email" required/>
                 <i class="fas fa-envelope"></i>
                 <small>Error message</small>
             </div>
             <div class="form-control">
                 <label for="password">Password</label>
-                <input type="password" placeholder="Password" id="password" name="password1" />
+                <input type="password" placeholder="Password" id="password" name="password1" required/>
                 <i class="fas fa-lock"></i>
                 <small>Error message</small>
             </div>
             <div class="form-control">
                 <label for="password2">Confirm Password</label>
-                <input type="password" placeholder="Confirm Password" id="password2" name="password2" />
+                <input type="password" placeholder="Confirm Password" id="password2" name="password2" required/>
                 <i class="fas fa-lock"></i>
                 <small>Error message</small>
             </div>
