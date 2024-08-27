@@ -13,11 +13,11 @@ from collections import Counter
 def home(request):
     return render(request, 'temporary.html')
 
-#@login_required
+@login_required
 def uploadview(request):
     return render(request, 'upload.html')
 
-#@login_required
+@login_required
 def findview(request):
     return render(request, 'find.html')
 
@@ -28,7 +28,6 @@ def signup(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         email = request.POST['email']
-        indexno = request.POST['indexno']
         username = request.POST['username']
 
         if password1 != password2:
